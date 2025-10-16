@@ -23,7 +23,7 @@ const signupPost = async (req, res) => {
             req.body.username,
             hashedPassword,
         ])
-        res.redirect("/login");
+        res.redirect("/login"); // will want to login automatically and redirect to home, change later
     } catch(err) {
         console.log(err);
         next(err);

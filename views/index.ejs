@@ -15,7 +15,11 @@
         </div>
     </header>
     <section>
-        
+        <% if (locals.user) {%>
+            <h3>logged in</h3>
+        <% } else { %>
+            <h3>logged out</h3>
+        <% } %>
     </section>
 </body>
 </html>
