@@ -12,6 +12,9 @@
 </head>
 <body>
     <h1>Sign up</h1>
+    <% if (locals.err) { %>
+        <p>Something is wrong or invalid</p>
+    <% } %>
     <form action="/sign-up" method="POST">
         <label for="firstName">First Name:</label>
         <input name="firstName" type="text" required>

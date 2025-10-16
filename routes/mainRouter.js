@@ -18,14 +18,19 @@ mainRouter.post("/sign-up", authController.signupPost);
 // login route and controller
 mainRouter.get("/login", authController.loginGet);
 
-const passport = require("passport");
+const passport = require("passport"); // I don't like how passport has to be required here
 mainRouter.post(
     "/login", 
     passport.authenticate("local", {
-        successRedirect: "/",
-        failureRedirect: "/"
+        // optional success/failure redirect/message
+        successRedirect: "/", // only if successRedirect is omitted, it calls next(). Not for failure
+        failureRedirect: "/login",
+        failureMessage: true, // adds message to req.session.messages
     })
 );
+mainRouter.post("/login", (req, res) => {
+    res.redirect("/sign-up");
+})
 
 // logout post
 mainRouter.post("/logout", authController.logoutPost);

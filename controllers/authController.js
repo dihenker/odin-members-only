@@ -3,7 +3,7 @@
 // Handle login and sign up
 // =======================================
 const bcrypt = require("bcryptjs");
-const pool = require("../db/pool.js");
+const pool = require("../db/pool.js"); // I don't like how pool has to be required here, queries should be in query.js
 
 
 const signupGet = async (req, res) => {
@@ -32,8 +32,8 @@ const signupPost = async (req, res) => {
 };
 
 const loginGet = async (req, res) => {
-    res.render("login");
-
+    res.locals.loginErrorMsgs = req.session.messages; // if passport.authenticate failure, store error message
+    res.render("login"); // locals.loginError accessible in view
 };
 
 // unncesscary since passport.authenticate deals with it
