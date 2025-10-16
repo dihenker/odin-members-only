@@ -10,7 +10,7 @@ const signupGet = async (req, res) => {
 
 
 const signupPost = async (req, res) => {
-
+    res.redirect("/");
 }
 
 const loginGet = async (req, res) => {
@@ -19,7 +19,7 @@ const loginGet = async (req, res) => {
 
 
 const loginPost = async (req, res) => {
-
+    res.redirect("/");
 }
 
 module.exports = {
