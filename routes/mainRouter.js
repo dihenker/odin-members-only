@@ -17,7 +17,15 @@ mainRouter.post("/sign-up", authController.signupPost);
 
 // login route and controller
 mainRouter.get("/login", authController.loginGet);
-mainRouter.post("/login", authController.loginPost);
+
+const passport = require("passport");
+mainRouter.post(
+    "/login", 
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/"
+    })
+);
 
 
 // catch-all for unmatched routes

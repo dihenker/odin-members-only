@@ -35,10 +35,10 @@ const loginGet = async (req, res) => {
     res.render("login");
 }
 
-
+// unncesscary since passport.authenticate deals with it
+// what if I want more
 const loginPost = async (req, res) => {
-    res.redirect("/");
-}
+}    
 
 module.exports = {
     signupGet,

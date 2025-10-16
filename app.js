@@ -26,7 +26,7 @@ const { searchUserLogin } = require("./db/query.js");
 passport.use(
     new LocalStrategy(async (username, password, cb) => {
         try {
-            const user = searchUserLogin(username);
+            const user = await searchUserLogin(username);
 
             // if user not found
             if (!user) {
@@ -44,6 +44,23 @@ passport.use(
         }
     })
 );
+
+// user login session info
+
+passport.serializeUser((user, cb) => {
+    cb(null, user.id);
+});
+
+passport.deserializeUser(async (id, cb) => {
+    try {
+        const { rows } = await pool.query("SELECT * FROM user WHERE id = $1", [id]);
+        const user = rows[0];
+
+        cb(null, user);
+    } catch (err) {
+        cb(err);
+    }
+});
 
 // setup server and listen
 const HOST = process.env.HOST || 'localhost';
