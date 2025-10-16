@@ -8,7 +8,7 @@ const pool = require("../db/pool.js");
 
 const signupGet = async (req, res) => {
     res.render("sign-up");
-}
+};
 
 
 const signupPost = async (req, res) => {
@@ -29,20 +29,29 @@ const signupPost = async (req, res) => {
         next(err);
     }
     
-}
+};
 
 const loginGet = async (req, res) => {
     res.render("login");
-}
+
+};
 
 // unncesscary since passport.authenticate deals with it
 // what if I want more
 const loginPost = async (req, res) => {
-}    
+} ;   
+
+const logoutPost = async (req, res) => {
+    req.logout((err) => {
+        if (err) return next(err);
+        res.redirect("/");
+    });
+};
 
 module.exports = {
     signupGet,
     signupPost,
     loginGet,
     loginPost,
+    logoutPost,
 };

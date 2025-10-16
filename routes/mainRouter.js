@@ -27,6 +27,9 @@ mainRouter.post(
     })
 );
 
+// logout post
+mainRouter.post("/logout", authController.logoutPost);
+
 
 // catch-all for unmatched routes
 mainRouter.use((req, res, next) => {

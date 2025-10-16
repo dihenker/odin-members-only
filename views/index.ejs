@@ -9,10 +9,20 @@
 <body>
     <header class="header">
         <h1>Member's Only</h1>
-        <div>
-            <a href="/sign-up"><button>Sign Up</button></a>
-            <a href="/login"><button>Login</button></a>
-        </div>
+        
+        <% if (locals.user) {%>
+            <div>
+                <div><%= user.username %></div>
+                <form action="/logout" method="POST">
+                    <a type="submit"><button>Logout</button></a>
+                </form>
+            </div>
+        <% } else { %>
+            <div>
+                <a href="/sign-up"><button>Sign Up</button></a>
+                <a href="/login"><button>Login</button></a>
+            </div>
+        <% } %>
     </header>
     <section>
         <% if (locals.user) {%>
