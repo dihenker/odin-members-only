@@ -12,7 +12,8 @@ const authController = require("../controllers/authController.js");
 
 // sign up route and controller
 mainRouter.get("/sign-up", authController.signupGet);
-mainRouter.post("/sign-up", authController.signupPost);
+// Question: Should I add a login middleware/function after the signup to automatically log in after signing up?
+mainRouter.post("/sign-up", authController.signupPost); 
 
 // login route and controller
 mainRouter.get("/login", authController.loginGet);
@@ -30,7 +31,7 @@ mainRouter.use((req, res, next) => {
 mainRouter.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.setHeader('Content-Type', "text/plain");
-    res.send(`${err.message}: ${req.path}`);
+    res.send(`${err.message}`);
 });
 
 module.exports = mainRouter;

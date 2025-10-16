@@ -2,6 +2,8 @@
 // authController.js
 // Handle login and sign up
 // =======================================
+const bcrypt = require("bcryptjs");
+const pool = require("../db/pool.js");
 
 
 const signupGet = async (req, res) => {
@@ -10,7 +12,23 @@ const signupGet = async (req, res) => {
 
 
 const signupPost = async (req, res) => {
-    res.redirect("/");
+    try {
+        // 10 is the salt. Can do bcrypt salt gen too
+        // should probably do that
+        // sometimes you'd have to store salt with the hash, but here it is handled
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        await pool.query("INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4)", [
+            req.body.firstName,
+            req.body.lastName,
+            req.body.username,
+            hashedPassword,
+        ])
+        res.redirect("/login");
+    } catch(err) {
+        console.log(err);
+        next(err);
+    }
+    
 }
 
 const loginGet = async (req, res) => {
