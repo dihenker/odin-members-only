@@ -33,6 +33,12 @@ mainRouter.post(
 mainRouter.post("/logout", authController.logoutPost);
 
 
+// test member only separate page for session
+mainRouter.get("/members-only", (req, res) => {
+    res.render("members-only", { user: req.user });
+})
+
+
 // catch-all for unmatched routes
 mainRouter.use((req, res, next) => {
     const err = new Error("page not found");
