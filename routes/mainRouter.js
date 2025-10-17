@@ -28,9 +28,6 @@ mainRouter.post(
         failureMessage: true, // adds message to req.session.messages
     })
 );
-mainRouter.post("/login", (req, res) => {
-    res.redirect("/sign-up");
-})
 
 // logout post
 mainRouter.post("/logout", authController.logoutPost);
