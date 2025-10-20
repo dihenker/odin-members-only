@@ -21,7 +21,7 @@ mainRouter.get("/login", authController.loginGet);
 const passport = require("passport"); // I don't like how passport has to be required here
 mainRouter.post(
     "/login", 
-    passport.authenticate("local", {
+    passport.authenticate("local", { // authenticate using LocalStrategy
         // optional success/failure redirect/message
         successRedirect: "/", // only if successRedirect is omitted, it calls next(). Not for failure
         failureRedirect: "/login",
@@ -34,8 +34,8 @@ mainRouter.post("/logout", authController.logoutPost);
 
 
 // test member only separate page for session
-mainRouter.get("/members-only", (req, res) => {
-    res.render("members-only", { user: req.user });
+mainRouter.get("/secret-password", (req, res) => {
+    res.render("secret-password", { user: req.user });
 })
 
 

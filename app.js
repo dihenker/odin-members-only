@@ -13,10 +13,18 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 
 // ?: understanding passport sessions
-app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
-app.use(passport.session());
+
+// establish express session
+app.use(session({ 
+    secret: "cats", 
+    resave: false, 
+    saveUninitialized: false,
+    cookie: {},
+})); 
+app.use(passport.session()); // calls deserialize and stores user info into req.user
 app.use(express.urlencoded({ extended: false }));
 
+// should this come after the passport setup?
 const mainRouter = require("./routes/mainRouter.js");
 app.use("/", mainRouter);
 
@@ -49,12 +57,25 @@ passport.use(
 // user login session info
 
 passport.serializeUser((user, cb) => {
+    console.log("serialize");
     cb(null, user.id);
 });
 
 const pool = require("./db/pool.js");
 
+// according to passport documentation
+// if session info is used on every page, then should store on session 
+// and reduce having to make database query every time
+// ANSWER: serialize/deserialize like encrypt/decrypt (without security)
+// we can serialize all our data, but it could be a lot, hence why you could
+// serialize an ID or something, and query for rest of user information
+// but if not much user information, could serialize it all and avoid having to query
+// e.g. could serialize id and username (don't serialize sensitive info, like password)
+// then deserialize and use the username right away, 
+// without having to query database with ID to find username
 passport.deserializeUser(async (id, cb) => {
+    console.log("deserialize");
+    console.log(id);
     try {
         const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
         const user = rows[0];
