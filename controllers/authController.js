@@ -11,19 +11,23 @@ const signupGet = async (req, res) => {
 };
 
 
-const signupPost = async (req, res) => {
+const signupPost = async (req, res, next) => {
     try {
         // 10 is the salt. Can do bcrypt salt gen too
         // should probably do that
         // sometimes you'd have to store salt with the hash, but here it is handled
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        await pool.query("INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4)", [
-            req.body.firstName,
-            req.body.lastName,
-            req.body.username,
-            hashedPassword,
-        ])
-        res.redirect("/login"); // will want to login automatically and redirect to home, change later
+        const result = await pool.query(
+            "INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING id, first_name, last_name, username",
+            [req.body.firstName, req.body.lastName, req.body.username, hashedPassword]
+        )
+        const user = result.rows[0];
+        console.log(user);
+        req.login(user, (err) => {
+            if (err) { return next(err); };
+            res.redirect("/");
+        })
+        // res.redirect("/login"); // will want to login automatically and redirect to home, change later
     } catch(err) {
         console.log(err);
         next(err);

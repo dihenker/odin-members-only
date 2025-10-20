@@ -13,6 +13,9 @@
         <% if (locals.user) {%>
             <div>
                 <div><%= user.username %></div>
+                <div><%= user.first_name %></div>
+                <div><%= user.last_name %></div>
+                <div><%= user.id %></div>
                 <form action="/logout" method="POST">
                     <a type="submit"><button>Logout</button></a>
                 </form>
