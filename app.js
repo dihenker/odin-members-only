@@ -14,9 +14,12 @@ app.use(express.static(__dirname + '/public'));
 
 // ?: understanding passport sessions
 
+// sessions currently stored in memory. Should create DB for it. 
+// passport will add passport property (sql column) to object (sql row), and passport stuff all in there
+
 // establish express session
 app.use(session({ 
-    secret: "cats", 
+    secret: process.env.SESSION_SECRET || "cats", // this should be a secret. Make a .env variable
     resave: false, 
     saveUninitialized: false,
     cookie: {},
