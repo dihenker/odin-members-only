@@ -16,6 +16,7 @@
                 <div><%= user.first_name %></div>
                 <div><%= user.last_name %></div>
                 <div><%= user.id %></div>
+                <div>VIP: <%= user.is_vip %></div>
                 <form action="/logout" method="POST">
                     <a type="submit"><button>Logout</button></a>
                 </form>

@@ -78,9 +78,8 @@ const pool = require("./db/pool.js");
 // without having to query database with ID to find username
 passport.deserializeUser(async (id, cb) => {
     console.log("deserialize");
-    console.log(id);
     try {
-        const { rows } = await pool.query("SELECT id, first_name, last_name, username FROM users WHERE id = $1", [id]);
+        const { rows } = await pool.query("SELECT id, first_name, last_name, username, is_vip FROM users WHERE id = $1", [id]);
         const user = rows[0];
 
         cb(null, user);

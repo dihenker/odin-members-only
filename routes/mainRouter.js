@@ -33,10 +33,12 @@ mainRouter.post(
 mainRouter.post("/logout", authController.logoutPost);
 
 
-// test member only separate page for session
-mainRouter.get("/secret-password", (req, res) => {
-    res.render("secret-password", { user: req.user });
-})
+const secretController = require("../controllers/secretController.js");
+
+// secret password route
+mainRouter.get("/secret-password", secretController.secretPasswordGet);
+
+mainRouter.post("/secret-password", secretController.secretPasswordPost);
 
 
 // catch-all for unmatched routes

@@ -18,7 +18,6 @@ const signupPost = async (req, res, next) => {
             if (err) { return next(err); };
             res.redirect("/");
         })
-        // res.redirect("/login"); // will want to login automatically and redirect to home, change later
     } catch(err) {
         console.log(err);
         next(err);
@@ -28,7 +27,7 @@ const signupPost = async (req, res, next) => {
 
 const loginGet = async (req, res) => {
     res.locals.loginErrorMsgs = req.session.messages; // if passport.authenticate failure, store error message
-    res.render("login"); // locals.loginError accessible in view
+    res.render("login"); // locals.loginErrorMsgs accessible in view
 };
 
 // unncesscary since passport.authenticate deals with it
