@@ -15,6 +15,14 @@
     <% if (locals.err) { %>
         <p>Something is wrong or invalid</p>
     <% } %>
+    <% if (locals.errors) {%>
+        <p>Errors</p>
+        <% errors.forEach(err => { %>
+            <li>
+                <%= err.msg %>
+            </li>
+        <% }); %>
+    <% } %>
     <form action="/sign-up" method="POST">
         <label for="firstName">First Name:</label>
         <input name="firstName" type="text" required>

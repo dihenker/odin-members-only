@@ -15,6 +15,7 @@ const secretPasswordPost = (req, res) => {
     } else {
         // wrong password, retry message
         // redirect to secret password page again
+        // show error
         res.redirect("/secret-password");
     }
 };

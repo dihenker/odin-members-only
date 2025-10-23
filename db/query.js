@@ -3,7 +3,8 @@ const bcrypt = require("bcryptjs");
 
 const searchUserLogin = async (username) => {
     // should return either 0 or 1 elements, since username should be unique
-    const { rows } = await pool.query("SELECT id, username, password FROM users WHERE username = $1", [username]);
+    // lower to search usernames case insensitively - ensure unique usernames
+    const { rows } = await pool.query("SELECT id, username, password FROM users WHERE LOWER(username) = LOWER($1)", [username]);
     
     return rows[0]; // either returns the object result, or undefined if no user found
 }
