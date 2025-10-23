@@ -36,5 +36,15 @@
         <% } %>
         <a href="/secret-password">secret password page</a>
     </section>
+    <section>
+        <% if (locals.user) {%>
+            <form action="/new-message" method="POST">
+                <textarea name="messageText"></textarea>
+                <button type="submit">Send</button>
+            </form>
+        <% } else { %>
+            <h3></h3>
+        <% } %>
+    </section>
 </body>
 </html>
