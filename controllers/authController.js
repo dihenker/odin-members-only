@@ -14,7 +14,7 @@ const validateSignupFields = [
         .trim()
         .notEmpty().withMessage("First name cannot be empty")
         .isAlpha().withMessage(`First name must only contain letters`),
-    body("firstName")
+    body("lastName")
         .trim()
         .notEmpty().withMessage("Last name cannot be empty")
         .isAlpha().withMessage(`Last name must only contain letters`),
