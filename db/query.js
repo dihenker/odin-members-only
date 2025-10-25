@@ -44,6 +44,11 @@ const deleteMessageById = async (id) => {
     await pool.query("DELETE FROM messages WHERE id=$1", [id]);
 }
 
+const getDeserializedUserInfo = async (id) => {
+    const { rows } = await pool.query("SELECT id, first_name, last_name, username, is_vip, is_admin FROM users WHERE id = $1", [id]);
+    return rows[0];
+}
+
 module.exports = {
     searchUserLogin,
     insertNewUser,
@@ -51,4 +56,5 @@ module.exports = {
     insertNewMessage,
     getAllMessages,
     deleteMessageById,
+    getDeserializedUserInfo,
 };

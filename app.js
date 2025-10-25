@@ -64,8 +64,6 @@ passport.serializeUser((user, cb) => {
     cb(null, user.id);
 });
 
-const pool = require("./db/pool.js");
-
 // according to passport documentation
 // if session info is used on every page, then should store on session 
 // and reduce having to make database query every time
@@ -76,12 +74,12 @@ const pool = require("./db/pool.js");
 // e.g. could serialize id and username (don't serialize sensitive info, like password)
 // then deserialize and use the username right away, 
 // without having to query database with ID to find username
+const { getDeserializedUserInfo } = require("./db/query.js");
+
 passport.deserializeUser(async (id, cb) => {
     console.log("deserialize");
     try {
-        const { rows } = await pool.query("SELECT id, first_name, last_name, username, is_vip, is_admin FROM users WHERE id = $1", [id]);
-        const user = rows[0];
-
+        const user = await getDeserializedUserInfo(id);
         cb(null, user);
     } catch (err) {
         cb(err);
