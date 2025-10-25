@@ -40,6 +40,11 @@ mainRouter.get("/secret-password", secretController.secretPasswordGet);
 
 mainRouter.post("/secret-password", secretController.secretPasswordPost);
 
+const messageController = require("../controllers/messageController.js");
+
+// new message post
+mainRouter.post("/new-message", messageController);
+
 
 // catch-all for unmatched routes
 mainRouter.use((req, res, next) => {

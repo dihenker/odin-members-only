@@ -36,5 +36,27 @@
         <% } %>
         <a href="/secret-password">secret password page</a>
     </section>
+    <section>
+        <% if (locals.user) {%>
+            <form action="/new-message" method="POST">
+                <textarea name="messageText"></textarea>
+                <button type="submit">Send</button>
+            </form>
+        <% } else { %>
+            <h3></h3>
+        <% } %>
+    </section>
+    <section>
+        <ul>
+            <% msgs.forEach((row) => { %>
+                <li>
+                    <%= row.message %>
+                    <% if (locals.user) {%>
+                        <%= user.is_vip ? `${row.author} ${row.formatted_created_at}` : '' %>
+                    <% } %>
+                </li>
+            <% })%>
+        </ul>
+    </section>
 </body>
 </html>
