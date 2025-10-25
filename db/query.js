@@ -34,9 +34,14 @@ const insertNewMessage = async (message, user) => {
 }
 
 const getAllMessages = async () => {
-    const { rows } = await pool.query("SELECT message, author, TO_CHAR(created_at, 'Mon DD YYYY HH24:MI:SS') AS formatted_created_at FROM messages");
+    const { rows } = await pool.query("SELECT id, message, author, TO_CHAR(created_at, 'Mon DD YYYY HH24:MI:SS') AS formatted_created_at FROM messages");
     
     return rows; // array of all messages rows - message, date, author
+}
+
+const deleteMessageById = async (id) => {
+    console.log(id);
+    await pool.query("DELETE FROM messages WHERE id=$1", [id]);
 }
 
 module.exports = {
@@ -45,4 +50,5 @@ module.exports = {
     updateVipStatus,
     insertNewMessage,
     getAllMessages,
+    deleteMessageById,
 };

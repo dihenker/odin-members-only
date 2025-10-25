@@ -1,4 +1,4 @@
-const { insertNewMessage } = require("../db/query.js");
+const { insertNewMessage, deleteMessageById } = require("../db/query.js");
 
 const newMessagePost = async (req, res) => {
     const msg = req.body.messageText;
@@ -7,4 +7,14 @@ const newMessagePost = async (req, res) => {
     res.redirect("/");
 };
 
-module.exports = newMessagePost;
+const deleteMessagePost = async (req, res) => {
+    if (req.user.is_admin) {
+        await deleteMessageById(req.params.id);
+    }
+    res.redirect("/");
+}
+
+module.exports = {
+    newMessagePost,
+    deleteMessagePost,
+};

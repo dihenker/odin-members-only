@@ -43,7 +43,10 @@ mainRouter.post("/secret-password", secretController.secretPasswordPost);
 const messageController = require("../controllers/messageController.js");
 
 // new message post
-mainRouter.post("/new-message", messageController);
+mainRouter.post("/new-message", messageController.newMessagePost);
+
+// delete message post
+mainRouter.post("/delete-message/:id", messageController.deleteMessagePost);
 
 
 // catch-all for unmatched routes
