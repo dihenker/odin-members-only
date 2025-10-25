@@ -27,8 +27,22 @@ const updateVipStatus = async (userId, status) => {
     await pool.query("UPDATE users SET is_vip=$1 WHERE id=$2", [status, userId]);
 }
 
+const insertNewMessage = async (message, user) => {
+    // insert user message
+    // parameterized sql queries (i.e. $1, $2, etc) prevent sql injection i.e. "sanitize input"
+    await pool.query("INSERT INTO messages (message, author) VALUES ($1, $2)", [message, user]);
+}
+
+const getAllMessages = async () => {
+    const { rows } = await pool.query("SELECT message, author, TO_CHAR(created_at, 'Mon DD YYYY HH24:MI:SS') AS formatted_created_at FROM messages");
+    
+    return rows; // array of all messages rows - message, date, author
+}
+
 module.exports = {
     searchUserLogin,
     insertNewUser,
     updateVipStatus,
+    insertNewMessage,
+    getAllMessages,
 };
