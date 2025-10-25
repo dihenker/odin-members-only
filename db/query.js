@@ -16,7 +16,7 @@ const insertNewUser = async (userInfo) => {
     // sometimes you'd have to store salt with the hash, but here it is handled
     const hashedPassword = await bcrypt.hash(userInfo.password, 10);
     const { rows } = await pool.query(
-        "INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING id, first_name, last_name, username, is_vip",
+        "INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING id, first_name, last_name, username, is_vip, is_admin",
         [userInfo.firstName, userInfo.lastName, userInfo.username, hashedPassword]
     )
     return rows[0]; // should return one result, the newly inserted row, to attach to req for auto login
