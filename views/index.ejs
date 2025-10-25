@@ -53,11 +53,11 @@
                     <%= row.message %>
                     <% if (locals.user) {%>
                         <%= user.is_vip ? `${row.author} ${row.formatted_created_at}` : '' %>
-                        <% if (true) %>
+                        <% if (user.is_admin) {%>
                             <form action='/delete-message/<%= row.id %>' method="POST">
                                 <button type="submit">delete</button>
                             </form>
-                        <% %>
+                        <% } %>
                     <% } %>
                 </li>
             <% })%>
