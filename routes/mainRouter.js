@@ -23,8 +23,8 @@ mainRouter.use((req, res, next) => {
 // error handler
 mainRouter.use((err, req, res, next) => {
     res.status(err.status || 500);
-    res.setHeader('Content-Type', "text/plain");
-    res.send(`${err.message}`);
+    res.setHeader('Content-Type', "text/html");
+    res.render("error", { err: err.message });
 });
 
 module.exports = mainRouter;
