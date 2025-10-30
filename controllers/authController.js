@@ -39,7 +39,7 @@ const validateSignupFields = [
         .trim()
         .custom((value, { req }) => {
             if (value != req.body.password) {
-                throw new Error("Passwords don't match");
+                throw new Error("Passwords don't match"); // could return false and add .withMessage() to chain
             }
             return true;
         }),    

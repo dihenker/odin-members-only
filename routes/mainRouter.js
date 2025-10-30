@@ -17,14 +17,15 @@ mainRouter.use("/messages", routes.messagesRouter);
 mainRouter.use((req, res, next) => {
     const err = new Error("page not found");
     err.status = 404;
-    next(err);
+    res.status(err.status);
+    res.render("404", { errMsg: err.message, errStatus: err.status });
 });
 
 // error handler
 mainRouter.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.setHeader('Content-Type', "text/html");
-    res.render("error", { err: err.message });
+    res.render("error", { errMsg: err.message, errStatus: err.message });
 });
 
 module.exports = mainRouter;
