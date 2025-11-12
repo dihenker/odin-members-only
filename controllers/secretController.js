@@ -1,4 +1,5 @@
 const { updateVipStatus } = require("../db/query.js");
+const { body } = require("express-validator");
 
 const secretPasswordGet = (req, res) => {
     res.render("secret-password", { user: req.user });
@@ -23,4 +24,5 @@ const secretPasswordPost = (req, res) => {
 module.exports = {
     secretPasswordGet,
     secretPasswordPost,
+    secretPasswordTrim: body("secret-password").trim()
 };

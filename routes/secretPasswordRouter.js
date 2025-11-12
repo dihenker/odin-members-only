@@ -7,6 +7,8 @@ const secretController = require("../controllers/secretController.js");
 // secret password route
 secretPasswordRouter.get("/", secretController.secretPasswordGet);
 
-secretPasswordRouter.post("/", secretController.secretPasswordPost);
+secretPasswordRouter.post("/", 
+    secretController.secretPasswordTrim,
+    secretController.secretPasswordPost);
 
 module.exports = secretPasswordRouter;

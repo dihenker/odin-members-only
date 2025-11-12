@@ -4,7 +4,7 @@ const { Router } = require("express");
 const loginRouter = Router();
 const authController = require("../controllers/authController.js");
 const passport = require("passport");
-const { body, validationResult, matchedData } = require("express-validator");
+const { body } = require("express-validator");
 
 // login route and controller
 loginRouter.get("/", authController.loginGet);
