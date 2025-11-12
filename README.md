@@ -1,7 +1,5 @@
 # Member's Only!
 
-## Overview
-
 Member's only is an exclusive messaging board that allows members to read and write posts. Non-members (i.e. users not registered) will still be able to read posts. Members can become VIP by entering the secret password, which then allows them to view the author and creation date of posts. 
 
 This project is part of [The Odin Project's](https://www.theodinproject.com/) cirriculum - specifically the [Member's Only](https://www.theodinproject.com/lessons/node-path-nodejs-members-only) proejct. The project employs user authentication, authorization, and database modeling. 
