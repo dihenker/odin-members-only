@@ -4,6 +4,7 @@ const { Router } = require("express");
 const loginRouter = Router();
 const authController = require("../controllers/authController.js");
 const passport = require("passport");
+const { body, validationResult, matchedData } = require("express-validator");
 
 // login route and controller
 loginRouter.get("/", authController.loginGet);
@@ -12,6 +13,7 @@ loginRouter.get("/", authController.loginGet);
 // perhaps function that returns it right away
 loginRouter.post(
     "/", 
+    body('username').trim(),
     passport.authenticate("local", { // authenticate using LocalStrategy
         // optional success/failure redirect/message
         successRedirect: "/", // only if successRedirect is omitted, it calls next(). Not for failure

@@ -12,11 +12,7 @@
         
         <% if (locals.user) {%>
             <div>
-                <div><%= user.username %></div>
-                <div><%= user.first_name %></div>
-                <div><%= user.last_name %></div>
-                <div><%= user.id %></div>
-                <div>VIP: <%= user.is_vip %></div>
+                <div><%= user.username %><%= user.is_vip ? ` (VIP)` : '' %></div>
                 <form action="/logout" method="POST">
                     <a type="submit"><button>Logout</button></a>
                 </form>
@@ -28,40 +24,41 @@
             </div>
         <% } %>
     </header>
-    <section>
-        <% if (locals.user) {%>
-            <h3>logged in</h3>
-        <% } else { %>
-            <h3>logged out</h3>
-        <% } %>
-        <a href="/secret-password">secret password page</a>
-    </section>
-    <section>
-        <% if (locals.user) {%>
-            <form action="/messages" method="POST">
-                <textarea name="messageText"></textarea>
-                <button type="submit">Send</button>
-            </form>
-        <% } else { %>
-            <h3></h3>
+    <section class="secret-password">
+        <% if (locals.user && !user.is_vip) {%>
+            <a href="/secret-password">become VIP</a>
         <% } %>
     </section>
-    <section>
-        <ul>
+    <section class="all-messages-container">
+        <ul class="all-messages-list">
             <% msgs.forEach((row) => { %>
-                <li>
-                    <%= row.message %>
-                    <% if (locals.user) {%>
-                        <%= user.is_vip ? `${row.author} ${row.formatted_created_at}` : '' %>
-                        <% if (user.is_admin) {%>
-                            <form action='/messages/<%= row.id %>' method="POST">
-                                <button type="submit">delete</button>
-                            </form>
+                <li class="message-card">
+                    <div class="message-text">
+                        <%= row.message %>
+                    </div>
+                    <div class="message-info">
+                        <% if (locals.user) {%>
+                            <div class="message-author-date-vip">
+                                <%= user.is_vip ? `-${row.author}, ${row.formatted_created_at}` : '' %>
+                            </div>
+                            <% if (user.is_admin) {%>
+                                <form action='/messages/<%= row.id %>' method="POST">
+                                    <button type="submit">delete</button>
+                                </form>
+                            <% } %>
                         <% } %>
-                    <% } %>
+                    </div>
                 </li>
             <% })%>
         </ul>
     </section>
+    <% if (locals.user) {%>
+        <section class="new-message-box">
+            <form action="/messages" method="POST">
+                <textarea name="messageText" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    <% } %>
 </body>
 </html>

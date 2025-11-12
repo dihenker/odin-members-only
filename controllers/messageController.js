@@ -10,6 +10,8 @@ const newMessagePost = async (req, res) => {
 const deleteMessagePost = async (req, res) => {
     if (req.user.is_admin) {
         await deleteMessageById(req.params.id);
+    } else {
+        res.status(401);
     }
     res.redirect("/");
 }
