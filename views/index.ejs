@@ -55,7 +55,7 @@
     <% if (locals.user) {%>
         <section class="new-message-box">
             <form action="/messages" method="POST">
-                <textarea name="messageText" required></textarea>
+                <textarea name="messageText" placeholder="Write a message..." required></textarea>
                 <button type="submit">Send</button>
             </form>
         </section>

@@ -60,7 +60,6 @@ passport.use(
 // user login session info
 
 passport.serializeUser((user, cb) => {
-    console.log("serialize");
     cb(null, user.id);
 });
 
@@ -77,7 +76,6 @@ passport.serializeUser((user, cb) => {
 const { getDeserializedUserInfo } = require("./db/query.js");
 
 passport.deserializeUser(async (id, cb) => {
-    console.log("deserialize");
     try {
         const user = await getDeserializedUserInfo(id);
         cb(null, user);
