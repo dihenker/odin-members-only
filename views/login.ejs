@@ -4,25 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <style>
-        label, input {
-            display: block;
-        }
-    </style>
+    <link href="/css/login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <h1>Login</h1>
-    <% if (locals.loginErrorMsgs) { %>
-        <p>Something is wrong or invalid</p>
-        <p><%= locals.loginErrorMsgs %></p>
-    <% } %>
-    <form action="/login" method="POST">
-        <label for="username">Username:</label>
-        <input name="username" type="text" required>
-        <label for="password">Password:</label>
-        <input name="password" type="password" required>
+    <div class="errors-container"> 
+        <% if (locals.loginErrorMsgs) { %>
+            <p>Something is wrong or invalid</p>
+            <p><%= locals.loginErrorMsgs %></p>
+        <% } %>
+    </div>
+    <form action="/login" method="POST" class="login-form">
+        <div>
+            <label for="username">Username:</label>
+            <input name="username" type="text" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input name="password" type="password" required>
+        </div>
         <button type="submit">Login</button>
     </form>
-    <p>Don't have an account? <a href="/sign-up">Sign Up Here</a></p>
+    <p class="sign-up-redirect">Don't have an account? <a href="/sign-up">Sign Up Here</a></p>
 </body>
 </html>

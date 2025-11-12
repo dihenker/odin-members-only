@@ -12,7 +12,7 @@
         
         <% if (locals.user) {%>
             <div>
-                <div><%= user.username %><%= user.is_vip ? ` (VIP)` : '' %></div>
+                <div><%= user.is_vip ? ` (VIP)` : '' %> @<%= user.username %></div>
                 <form action="/logout" method="POST">
                     <a type="submit"><button>Logout</button></a>
                 </form>
@@ -39,7 +39,7 @@
                     <div class="message-info">
                         <% if (locals.user) {%>
                             <div class="message-author-date-vip">
-                                <%= user.is_vip ? `-${row.author}, ${row.formatted_created_at}` : '' %>
+                                <%= user.is_vip ? `@${row.author}, ${row.formatted_created_at}` : '' %>
                             </div>
                             <% if (user.is_admin) {%>
                                 <form action='/messages/<%= row.id %>' method="POST">
