@@ -37,10 +37,10 @@
                         <%= row.message %>
                     </div>
                     <div class="message-info">
+                        <div class="message-author-date-vip">
+                            <%= locals.user && user.is_vip ? `@${row.author}, ${row.formatted_created_at}` : '-Anonymous' %>
+                        </div>
                         <% if (locals.user) {%>
-                            <div class="message-author-date-vip">
-                                <%= user.is_vip ? `@${row.author}, ${row.formatted_created_at}` : '' %>
-                            </div>
                             <% if (user.is_admin) {%>
                                 <form action='/messages/<%= row.id %>' method="POST">
                                     <button type="submit">delete</button>
